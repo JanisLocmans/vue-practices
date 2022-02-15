@@ -1,17 +1,51 @@
 <template>
+
   <div id="app">
+
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <hello-world
+        :msg=text
+        @clicked="onClickChild"
+    >
+
+    </hello-world>
+
+    <button v-on:click="changeText">test</button>
+
   </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import HelloWorld from './components/HelloWorld.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    'hello-world' : HelloWorld
+  },
+
+  created() {
+    setInterval(this.changeText, 1000);
+  },
+
+  methods: {
+    moment(...args) {
+      return window.moment(...args);
+    },
+    changeText() {
+      this.text = this.moment().format("MMM DD HH:mm:ss");
+    },
+    onClickChild (value) {
+      console.log(value)
+    }
+  },
+  data() {
+    return {
+      text: 'marbles'
+    }
   }
 }
 </script>
